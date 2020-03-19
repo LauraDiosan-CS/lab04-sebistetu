@@ -1,0 +1,7 @@
+﻿  cheltuiala.cpp
+  main.cpp
+  repo.cpp
+  test.cpp
+C:\Users\cucol\Desktop\cpp\lab4\test.cpp(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
+  lab4.vcxproj -> C:\Users\cucol\Desktop\cpp\lab4\Debug\lab4.exe
