@@ -11,6 +11,8 @@ public:
 	Repo();
 	~Repo();
 	void addElem(Cheltuiala& c);
+	void updateElem(Cheltuiala);
+	int delElem(int);
 	void getAll(Cheltuiala rez[], int &lung);
 	int get_size();
 
