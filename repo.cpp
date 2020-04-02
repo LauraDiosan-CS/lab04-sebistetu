@@ -13,46 +13,53 @@ Repo::~Repo() {
 
 /*Adaugare cheltuiala
 in: c, cheltuiala data
-out: -
+out: true, daca s-a efecutat adaugarea, flase altfel
 */
-void Repo::addElem(Cheltuiala& c) {
+bool Repo::addElem(Cheltuiala& c) {
+
+	for (int i = 0; i < nr_cheltuieli; ++i)
+		if (cheltuieli[i].get_id() == c.get_id())
+			return false;
 
 	this->cheltuieli[this->nr_cheltuieli++] = c;
+	return true;
 }
 
 /*Modificare cheltuiala
 in:
--ap: int, nr apartamentului la care se face modificarea
--suma: int, suma modificata
--tip: char*, noul tip
+-c: cheltuiala noua
 out: lista de elemente cu o cheltuiala modificata, daca este gasita
+	true, daca s-a efecutat modificarea, false altfel
 */
-void Repo::updateElem(Cheltuiala c) {
+bool Repo::updateElem(Cheltuiala c) {
 
 	for (int i = 0; i < nr_cheltuieli; ++i)
 		if (cheltuieli[i].get_id() == c.get_id()) {
 
+			cheltuieli[i].set_nr_apartament(c.get_nr_apartament());
 			cheltuieli[i].set_suma(c.get_suma());
 			cheltuieli[i].set_tip(c.get_tip());
+			return true;
 		}
+	return false;
 }
 
 /*Sterge cheltuiala aferenta unui id
 in:
--id: int
-out: -1 daca nu s a gasit cheltuiala si 0 in cazul in care s-a efectuat stergerea cu succes
+-c: cheltuiala ce trebuie stearsa
+out: false daca nu s a gasit cheltuiala si true in cazul in care s-a efectuat stergerea cu succes
 */
-int Repo::delElem(int id) {
+bool Repo::delElem(Cheltuiala c) {
 
 	for (int i = 0; i < nr_cheltuieli; ++i)
-		if (cheltuieli[i].get_id() == id) {
+		if (cheltuieli[i] == c) {
 
 			for (int j = i; j < nr_cheltuieli - 1; ++j)
 				cheltuieli[j] = cheltuieli[j + 1];
 			nr_cheltuieli--;
-			return 0;
+			return true;
 		}
-	return -1;
+	return false;
 }
 
 /*Returneaza prin parametru lista de cheltuieli si numarul acestora
@@ -77,3 +84,13 @@ int Repo::get_size() {
 
 	return this->nr_cheltuieli;
 }
+
+Cheltuiala Repo::getElemDupaId(int id) {
+
+	for (int i = 0; i < nr_cheltuieli; ++i)
+		if (cheltuieli[i].get_id() == id)
+			return cheltuieli[i];
+
+	return Cheltuiala(0, 0, 0, 0);
+}
+

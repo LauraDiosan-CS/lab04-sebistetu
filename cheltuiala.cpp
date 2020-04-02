@@ -29,8 +29,12 @@ Cheltuiala::Cheltuiala(int id, int nr_apartament, int suma, char* tip) {
 	this->id = id;
 	this->nr_apartament = nr_apartament;
 	this->suma = suma;
-	this->tip = new char[strlen(tip) + 1];
-	strcpy_s(this->tip, strlen(tip) + 1, tip);
+	if (tip == NULL)
+		this->tip = NULL;
+	else {
+		this->tip = new char[strlen(tip) + 1];
+		strcpy_s(this->tip, strlen(tip) + 1, tip);
+	}
 }
 
 /*
@@ -44,8 +48,12 @@ Cheltuiala::Cheltuiala(const Cheltuiala& c) {
 	this->id = c.id;
 	this->nr_apartament = c.nr_apartament;
 	this->suma = c.suma;
-	this->tip = new char[strlen(c.tip) + 1];
-	strcpy_s(this->tip, strlen(c.tip) + 1, c.tip);
+	if (c.tip == NULL)
+		this->tip = NULL;
+	else {
+		this->tip = new char[strlen(c.tip) + 1];
+		strcpy_s(this->tip, strlen(c.tip) + 1, c.tip);
+	}
 }
 
 //Destructor
@@ -148,5 +156,15 @@ out: true, daca cele doua obiecte sunt egale, false altfel
 */
 bool Cheltuiala::operator==(const Cheltuiala &c) {
 
-	return ((this->id == c.id) and (this->nr_apartament == c.nr_apartament) and (strcmp(this->tip, c.tip) == 0) and (this->suma == c.suma));
-}
+	bool rezultat = true;
+	if (c.id)
+		rezultat = rezultat and (c.id == id);
+	if (c.nr_apartament)
+		rezultat = rezultat and (c.nr_apartament == nr_apartament);
+	if (c.suma)
+		rezultat = rezultat and (c.suma == suma);
+	if (c.tip)
+		rezultat = rezultat and (strcmp(c.tip, tip) == 0);
+
+	return rezultat;
+}		

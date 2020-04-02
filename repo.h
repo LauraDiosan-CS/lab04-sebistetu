@@ -10,11 +10,13 @@ private:
 public:
 	Repo();
 	~Repo();
-	void addElem(Cheltuiala& c);
-	void updateElem(Cheltuiala);
-	int delElem(int);
+	bool addElem(Cheltuiala& c);
+	bool updateElem(Cheltuiala);
+	bool delElem(Cheltuiala);
 	void getAll(Cheltuiala rez[], int &lung);
 	int get_size();
+	void reverse(Cheltuiala rez[], int& lung);
+	Cheltuiala getElemDupaId(int);
 
 };
 
